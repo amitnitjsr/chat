@@ -75,7 +75,7 @@ function Navbar(props) {
                                 <i className="zmdi zmdi-email zmdi-hc-lg"></i>
                             </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                            <span>&nbsp;&nbsp;
+                            <span>
                                 <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                                     <DropdownToggle caret>
                                         <i className="zmdi zmdi-account-o zmdi-hc-lg"></i>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Row } from 'reactstrap';
-import MuiDialogActions from '@material-ui/core/DialogActions';
+import { Row, Card, CardBody } from 'reactstrap';
+// import MuiDialogActions from '@material-ui/core/DialogActions';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -9,7 +9,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import { connect } from "react-redux";
-import ConversionData from '../Chat/chatPanel/data/conversationList';
+import './Chat.css';
 
 const styles = (theme) => ({
     root: {
@@ -25,12 +25,12 @@ const styles = (theme) => ({
     },
 });
 
-const DialogActions = withStyles((theme) => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(1)
-    }
-}))(MuiDialogActions);
+// const DialogActions = withStyles((theme) => ({
+//     root: {
+//         margin: 0,
+//         padding: theme.spacing(1)
+//     }
+// }))(MuiDialogActions);
 
 const DialogTitle = withStyles(styles)((props) => {
     const { children, classes, onClose, ...other } = props;
@@ -100,7 +100,7 @@ class Chat extends Component {
     render() {
 
         let chatBox = (
-            <Dialog maxWidth={'md'} fullWidth={true} open={this.props.chat} onClose={() => this.popupToggle()}>
+            <Dialog maxWidth={'md'} fullWidth={true} open={this.props.chat} >
                 <DialogTitle onClose={() => this.popupToggle()} >
                     {this.props.name} {' : Chat process '}
                 </DialogTitle>
@@ -110,19 +110,29 @@ class Chat extends Component {
                             <div className="chat-main-content">
                                 {this.props.MessageData.map((conversation, index) => conversation.type === 'sent' ?
                                     <div className="d-flex flex-nowrap chat-item flex-row-reverse">
-                                        <div className="sentmessage">
-                                            <div className="message">{conversation.message}</div>
+                                        <Card style={{ margin: '5px' }}>
+                                            <CardBody>
+                                                <div className="sentmessage">
+                                                    <div className="message">{conversation.message}</div>
+                                                    <div className="time text-muted text-right mt-2">
+                                                        {conversation.sentAt}
+                                                        <i className="zmdi zmdi-check-all color" />
+                                                    </div>
+                                                </div>
 
-                                        </div>
+                                            </CardBody>
+                                        </Card>
                                     </div>
                                     :
                                     <div className="d-flex flex-nowrap chat-item">
-                                        <div className="bubble">
-                                            <div className="message">{conversation.message}</div>
-                                            <div className="time text-muted text-right mt-2">
-                                                <i className="zmdi zmdi-check-all" />
-                                            </div>
-                                        </div>
+                                        <Card style={{ margin: '5px' }}>
+                                            <CardBody>
+                                                <div className="bubble">
+                                                    <div className="message">{conversation.message}</div>
+                                                    <div className="time text-muted text-right mt-2">{conversation.sentAt}</div>
+                                                </div>
+                                            </CardBody>
+                                        </Card>
                                     </div>
                                 )}
                             </div>

@@ -1,10 +1,8 @@
 import Data from '../components/data/contactList';
-// import ChatContact from '../components/Chat/chatPanel/data/chatUsers';
 import ConversionData from '../components/Chat/chatPanel/data/conversationList';
 
 const iState = {
     list: Data,
-    // ChatContact: ChatContact,
     ConversionDataList: ConversionData,
     MessageData: [],
 };
@@ -30,6 +28,7 @@ const reducer = (state = iState, action) => {
                 "list": state.list.filter(f => !array.includes(f.id.toString()))
             };
         case "editListById":
+            // eslint-disable-next-line
             const editedValue = state.list.map(item => {
                 if (item.id === action.payload.id) {
                     // eslint-disable-next-line
@@ -41,7 +40,7 @@ const reducer = (state = iState, action) => {
                 else
                     return item;
             });
-
+            break;
         case "searchData":
             let filteredData = ''
             if (action.payload.searchInput) {
@@ -59,11 +58,11 @@ const reducer = (state = iState, action) => {
                 return { "list": Data }
             }
         case "addChatmsg":
-            // console.log('addChatmsg', state.ConversionDataList, action.payload.id)
+
             const addMsg = state.ConversionDataList.map(item => {
                 if (item.id === action.payload.id) {
                     let t = [...item.conversationData, {
-                        'type': 'sent', 'message': action.payload.message
+                        'type': 'sent', 'message': action.payload.message, 'sentAt': new Date().toLocaleTimeString()
                     }]
                     let t1 = { id: item.id, conversationData: t }
                     return t1
@@ -71,7 +70,6 @@ const reducer = (state = iState, action) => {
                 else
                     return item
             });
-            // console.log('add', addMsg)
             return {
                 "ConversionDataList": addMsg,
                 "list": state.list,
