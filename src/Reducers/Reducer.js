@@ -11,6 +11,8 @@ const reducer = (state = iState, action) => {
     switch (action.type) {
         case "pushList":
             return {
+                "MessageData": state.MessageData,
+                "ConversionDataList": state.ConversionDataList,
                 "list": [...state.list, {
                     id: (state.list.length === 0) ? 1 : state.list[state.list.length - 1].id + 1,
                     name: action.payload.name, phone: (action.payload.phone),
@@ -25,7 +27,9 @@ const reducer = (state = iState, action) => {
 
             // filter array with array of object
             return {
-                "list": state.list.filter(f => !array.includes(f.id.toString()))
+                "list": state.list.filter(f => !array.includes(f.id.toString())),
+                "MessageData": state.MessageData,
+                "ConversionDataList": state.ConversionDataList
             };
         case "editListById":
             // eslint-disable-next-line
@@ -51,11 +55,17 @@ const reducer = (state = iState, action) => {
                         .includes(action.payload.searchInput.toLowerCase())
                 })
                 return {
-                    "list": filteredData
+                    "list": filteredData,
+                    "MessageData": state.MessageData,
+                    "ConversionDataList": state.ConversionDataList,
                 }
             }
             else {
-                return { "list": Data }
+                return {
+                    "list": Data,
+                    "MessageData": state.MessageData,
+                    "ConversionDataList": state.ConversionDataList
+                }
             }
         case "addChatmsg":
 
